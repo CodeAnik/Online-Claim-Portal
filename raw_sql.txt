@@ -1,0 +1,180 @@
+// Create user table
+create table users
+(
+    id int AUTO_INCREMENT primary key,
+    username varchar(50),
+    email varchar(50),
+    user_type smallint,
+    active_status boolean,
+    pass varchar(20)
+)
+
+// create part_time_table
+create table part_time_teaching(
+    id int AUTO_INCREMENT primary KEY,
+    name varchar(50),
+    school_of varchar(50),
+    month_name varchar(50),
+    department varchar(50),
+    lecture_per_hour decimal(10,2),
+    tutorial_per_hour decimal(10,2),
+    traveling_reimbursement_days int,
+    signature_hod varchar(50),
+    signature_dean varchar(50),
+    added_date date
+)
+
+// create part_time_teaching_data
+create table part_time_teaching_data(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    added_date date,
+    subject varchar(50),
+    lectur_hour int ,
+    lecture_type int,
+    varified_by_hod varchar(50),
+    part_time_teaching_tbl_id int NOT null,
+    FOREIGN KEY (part_time_teaching_tbl_id )
+    REFERENCES part_time_teaching (id)
+    ON DELETE CASCADE
+)
+
+// create overtime_teaching table
+
+create table overtime_teaching(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    faculty_of varchar(50),
+    emp_no varchar(50),
+    dept_name varchar(50),
+    position varchar(50),
+    semester varchar(50),
+    total_contact DECIMAL(10,2),
+    total_excess_252 DECIMAL(10,2),
+    diploma_lecture_rate DECIMAL(10,2),
+    diploma_tutorial_rate DECIMAL(10,2),
+    degree_lecture_rate DECIMAL(10,2),
+    degree_tutorial_rate DECIMAL(10,2),
+    signature_hod varchar(50),
+    signature_dean varchar(50),
+    signature_deputy_vc varchar(50)
+)
+
+// create overtime teaching data
+create table overtime_teaching_data(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    added_date date,
+    cur_day varchar(50),
+    subject varchar(50),
+    sub_code varchar(50),
+    no_of_std DECIMAL(10,2),
+    deg_diploma_level varchar(50),
+    lecture DECIMAL(10,2),
+    tutorial DECIMAL(10,2),
+    overtime_teaching_tbl_id int NOT null,
+    FOREIGN KEY (overtime_teaching_tbl_id )
+    REFERENCES overtime_teaching (id)
+    ON DELETE CASCADE
+    
+)
+
+
+// question paper form create
+
+create table question_paper_form
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    school varchar(50),
+    emp_no varchar(50),
+    department varchar(50),
+    cur_status varchar(50),
+    cur_month varchar(50),
+    two_hour_script DECIMAL(10,2),
+    two_and_half_hour_script DECIMAL(10,2),
+    three_hour_script DECIMAL(10,2),
+    two_hour_paper DECIMAL(10,2),
+    two_and_half_hour_paper DECIMAL(10,2),
+    three_hour_paper DECIMAL(10,2),
+    signature varchar(50),
+    cur_date DATE,
+    signature_hod_or_cordinator varchar(50),
+    signature_dean_of_school varchar(50),
+    signature_head_of_exam_unit varchar(50),
+    uploaded_by int DEFAULT(0)
+    
+    
+)
+
+
+// create question paper form data
+
+create table question_paper_form_data
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    semester varchar(50),
+    subject varchar(50),
+    duration_of_question varchar(50),
+    ans_script_or_question_set_amount DECIMAL(10,2),
+    ans_script_or_question_set_amount_type smallint,
+    question_paper_form_id int NOT null,
+    FOREIGN KEY(question_paper_form_id) REFERENCES question_paper_form(id)
+    
+)
+
+
+// create expense claim table
+create table expense_claim
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(50),
+    staff_no varchar(50),
+    depatment varchar(50),
+    month varchar(50),
+    first_500 DECIMAL(10,2),
+    thereafter DECIMAL(10,2),
+    staff_signature varchar(50),
+    signature varchar(50),
+    uploaded_by int DEFAULT(0)
+    
+)
+
+// create expense claim data a
+create table expense_claim_form_data_a
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    cur_date date,
+    description varchar(50),
+    remarks varchar(50),
+    amount_1 DECIMAL(10,2),
+    amount_2 DECIMAL(10,2),
+    expense_claim_id int NOT null,
+     FOREIGN KEY(expense_claim_id) REFERENCES expense_claim(id)
+)
+
+// create expense claim data b
+
+create table expense_claim_form_data_b
+(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    destination_and_purpose_trip varchar(50),
+    no_of_km varchar(50),
+    parj_and_toll varchar(50),
+    account_rm varchar(50),
+    misc_rm varchar(50),
+    b_fast DECIMAL(10,2),
+    lunch DECIMAL(10,2),
+    dinner DECIMAL(10,2),
+    amount_rm_1 DECIMAL(10,2),
+    amount_rm_2 DECIMAL(10,2),
+    explain_claim_id int NOT null,
+    FOREIGN KEY (explain_claim_id)
+    REFERENCES expense_claim(id)
+    ON DELETE CASCADE
+)
+
+
+ALTER TABLE overtime_teaching
+ADD added_by int default 0
+
+ALTER TABLE part_time_teaching
+ADD added_by int default 0

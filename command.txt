@@ -1,0 +1,2 @@
+1. to stop permission everytime
+sudo chmod -R 777 /opt/lampp/htdocs
